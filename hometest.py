@@ -4,7 +4,6 @@
 #  arifhidayah22@gmail.com  #
 # ==========================#
 
-from ast import If
 from itertools import permutations
 from itertools import combinations_with_replacement 
 import numpy as np
@@ -28,21 +27,102 @@ def findNearest():
     # temukan indeks elemen minimum dari array
     index = difference_array.argmin()
     # buka tag komen dibawah ini untuk melihat nilai terdekat dengan 24
-    # print("Elemen terdekat dengan nilai yang diberikan adalah : ", arr[index])
+    print("Elemen terdekat dengan nilai yang diberikan adalah : ", arr[index])
     print("Hasilnya : ",arrTextResult[index])
 
 
 #fungsi melakukan operasi
 def getMath(math,data):
     text = str(data[0])+str(math[0])+str(data[1])+str(math[1])+str(data[2])+str(math[2])+str(data[3])
-    arrResult.append(eval(text))
+    try:
+        nilai = eval(text)
+    except ZeroDivisionError:
+        nilai = 0    
+    arrResult.append(nilai)
     arrTextResult.append(text)
+
+    string = text
+    string = "("+string[0:3]+")"+string[3:7]
+    # #print(string)
+    try:
+        nilai = eval(string)
+    except ZeroDivisionError:
+        nilai = 0    
+    arrResult.append(nilai)
+    arrTextResult.append(string)
+    string = "("+string[0:7]+")"+string[7:9]
+    #print(string)
+    try:
+        nilai = eval(string)
+    except ZeroDivisionError:
+        nilai = 0    
+    arrResult.append(nilai)
+    arrTextResult.append(string)
+
+    string = text
+    string = string[0:2]+"("+string[2:5]+")"+string[5:7]
+    #print(string)
+    try:
+        nilai = eval(string)
+    except ZeroDivisionError:
+        nilai = 0    
+    arrResult.append(nilai)
+    arrTextResult.append(string)
+    string = "("+string[0:7]+")"+string[7:9]
+    #print(string)
+    try:
+        nilai = eval(string)
+    except ZeroDivisionError:
+        nilai = 0    
+    arrResult.append(nilai)
+    arrTextResult.append(string)
+
+    string = text
+    string = string[0:2]+"("+string[2:5]+")"+string[5:7]
+    #print(string)
+    try:
+        nilai = eval(string)
+    except ZeroDivisionError:
+        nilai = 0    
+    arrResult.append(nilai)
+    arrTextResult.append(string)
+    string = string[0:2]+"("+string[2:9]+")"
+    #print(string)
+    try:
+        nilai = eval(string)
+    except ZeroDivisionError:
+        nilai = 0    
+    arrResult.append(nilai)
+    arrTextResult.append(string)
+
+    string = text
+    string = string[0:4]+"("+string[4:7]+")"
+    #print(string)
+    try:
+        nilai = eval(string)
+    except ZeroDivisionError:
+        nilai = 0    
+    arrResult.append(nilai)
+    arrTextResult.append(string)
+    string = string[0:2]+"("+string[2:9]+")"
+    #print(string)
+    try:
+        nilai = eval(string)
+    except ZeroDivisionError:
+        nilai = 0    
+    arrResult.append(nilai)
+    arrTextResult.append(string)
 
 
 #fungsi melakukan pengacakan operasi
 def randomMath(data):
-    interMath = combinations_with_replacement(['*','-','+','/'], r=3)
-    for index,math in enumerate(list(interMath),1):
+    interMath1 = combinations_with_replacement(['*','-','+','/'], r=3)
+    interMath2 = permutations(['*','-','+','/'], r=3)
+
+    for index,math in enumerate(list(interMath1),1):
+        getMath(math,data)
+        # print(math)
+    for index,math in enumerate(list(interMath2),1):
         getMath(math,data)
         # print(math)
  
@@ -65,7 +145,7 @@ def main():
         else:
             print('inputan anda bukan angka.')
         
-    
+    # randomMath('a')
     # penggunaan permutation
     permutasi = permutations(data_list)
     
@@ -75,6 +155,12 @@ def main():
 
     print("Input User : ",data_list)
     findNearest()
+
+    # for index, data in enumerate(list(arrResult), 1):
+    #     print(data)
+
+    # for index, data in enumerate(list(arrTextResult), 1):
+    #     print(data)
 
 if __name__ == "__main__":
     sys.exit(main())
